@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +35,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -66,6 +68,12 @@ class MainActivity : ComponentActivity() {
 fun TampilLayout(
     modifier: Modifier = Modifier
 ) {
+    Divider()
+    Text(
+        text = "Create Your Account",
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Bold
+    )
     Card (
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
@@ -146,7 +154,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp, dataForm.sex, textEmail, textAlamat)
+            cobaViewModel.insertData(dataForm.sex, dataForm.setatus, textAlamat, textEmail)
         }
     ) {
         Text(
@@ -155,10 +163,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     }
     Spacer(modifier = Modifier.height(100.dp))
     TextHasil(
-        namanya = cobaViewModel.namaUsr,
-        telponnya = cobaViewModel.noTlp,
         jenisnya = cobaViewModel.jenisKl,
-        alamatnya = cobaViewModel.alamat
+        statusnya = cobaViewModel.status,
+        alamatnya = cobaViewModel.alamat,
+        emailnya = cobaViewModel.email
     )
 }
 
@@ -229,7 +237,7 @@ fun SelectStatus(
 }
 
 @Composable
-fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: String){
+fun TextHasil(jenisnya: String, statusnya: String, alamatnya: String, emailnya: String){
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -237,19 +245,19 @@ fun TextHasil(namanya: String, telponnya: String, jenisnya: String, alamatnya: S
         modifier = Modifier.fillMaxWidth()
     ) {
        Text(
-           text = "Nama : " + namanya,
+           text = "Jenis Kelamin : " + jenisnya,
            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
        )
         Text(
-            text = "Telepon : " + telponnya,
-            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
-        )
-        Text(
-            text = "Jenis Kelamin : " + jenisnya,
+            text = "Status : " + statusnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
         Text(
             text = "Alamat : " + alamatnya,
+            modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
+        )
+        Text(
+            text = "Email : " + emailnya,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
         )
 
