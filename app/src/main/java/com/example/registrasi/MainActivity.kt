@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.registrasi.Data.DataForm
 import com.example.registrasi.Data.DataSource.jenis
+import com.example.registrasi.Data.DataSource.stts
 import com.example.registrasi.ui.theme.RegistrasiTheme
 
 class MainActivity : ComponentActivity() {
@@ -128,6 +129,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         options = jenis.map { id -> context.resources.getString(id) },
         onSelectionChanged = { cobaViewModel.setJenisK(it) }
     )
+    SelectStatus(
+        options = stts.map { id -> context.resources.getString(id) },
+        onSelectionChanged = { cobaViewModel.setStatus(it) }
+    )
     OutlinedTextField(
         value = textAlamat,
         singleLine = true,
@@ -165,6 +170,39 @@ fun SelectJK(
     var selectedValue by rememberSaveable { mutableStateOf("") }
 
     Text(text = "Jenis Kelamin")
+    Row (modifier = Modifier.padding(16.dp)){
+        options.forEach { item ->
+            Row (
+                modifier = Modifier.selectable(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChanged(item)
+                    }
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                RadioButton(
+                    selected = selectedValue == item,
+                    onClick = {
+                        selectedValue = item
+                        onSelectionChanged(item)
+                    }
+                )
+                Text(item)
+            }
+        }
+    }
+}
+
+@Composable
+fun SelectStatus(
+    options: List<String>,
+    onSelectionChanged: (String) -> Unit = {}
+){
+    var selectedValue by rememberSaveable { mutableStateOf("") }
+
+    Text(text = "Status")
     Row (modifier = Modifier.padding(16.dp)){
         options.forEach { item ->
             Row (
