@@ -59,6 +59,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+//difider
 
 @Composable
 fun TampilLayout(
@@ -84,6 +85,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
 
     var textNama by remember { mutableStateOf("") }
     var textTlp by remember { mutableStateOf("") }
+    var textEmail by remember { mutableStateOf("") }
     var textAlamat by remember { mutableStateOf("") }
 
     val context = LocalContext.current
@@ -113,6 +115,20 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
         }
     )
     OutlinedTextField(
+        value = textEmail,
+        singleLine = true,
+        shape = MaterialTheme.shapes.large,
+        modifier = Modifier.fillMaxWidth(),
+        label = { Text(text = "Email") },
+        onValueChange = {
+            textEmail = it
+        }
+    )
+    SelectJK(
+        options = jenis.map { id -> context.resources.getString(id) },
+        onSelectionChanged = { cobaViewModel.setJenisK(it) }
+    )
+    OutlinedTextField(
         value = textAlamat,
         singleLine = true,
         shape = MaterialTheme.shapes.large,
@@ -122,14 +138,10 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             textAlamat = it
         }
     )
-    SelectJK(
-        options = jenis.map { id -> context.resources.getString(id) },
-        onSelectionChanged = { cobaViewModel.setJenisK(it) }
-    )
     Button(
         modifier = Modifier.fillMaxWidth(),
         onClick = {
-            cobaViewModel.insertData(textNama, textTlp, dataForm.sex, textAlamat)
+            cobaViewModel.insertData(textNama, textTlp, dataForm.sex, textEmail, textAlamat)
         }
     ) {
         Text(
@@ -152,7 +164,8 @@ fun SelectJK(
 ){
     var selectedValue by rememberSaveable { mutableStateOf("") }
 
-    Column (modifier = Modifier.padding(16.dp)){
+    Text(text = "Jenis Kelamin")
+    Row (modifier = Modifier.padding(16.dp)){
         options.forEach { item ->
             Row (
                 modifier = Modifier.selectable(

@@ -2,5 +2,7 @@
     <string name="app_name">Registrasi</string>
     <string name="laki">Laki-laki</string>
     <string name="wanita">Perempuan</string>
-    <string name="submit">Submit</string>
+    <string name="submit">Register</string>
+    <string name="status1">Belum Menikah</string>
+    <string name="status2">Menikah</string>
 </resources>
