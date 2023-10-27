@@ -70,31 +70,34 @@ class MainActivity : ComponentActivity() {
 fun TampilLayout(
     modifier: Modifier = Modifier
 ) {
-    Row {
-        Icon(
-            painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-            contentDescription = null
-        )
 
-        Text(
-            text = "Register"
-        )
-    }
-    Divider()
-    Text(
-        text = "Create Your Account",
-        fontSize = 22.sp,
-        fontWeight = FontWeight.Bold
-    )
     Card (
         modifier = modifier,
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ){
+        Row (
+            modifier = Modifier.padding(20.dp)
+        ){
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_arrow_back_24),
+                contentDescription = null
+            )
+
+            Text(
+                text = "Register"
+            )
+        }
+        Divider()
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(20.dp)
         ){
+            Text(
+                text = "Create Your Account",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            )
             TampilForm()
         }
     }
@@ -151,7 +154,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
     )
     SelectStatus(
         options = stts.map { id -> context.resources.getString(id) },
-        onSelectionChanged = { cobaViewModel.setStatus(it) }
+        onSelectionChanged = { cobaViewModel.setSttus(it) }
     )
     OutlinedTextField(
         value = textAlamat,
@@ -173,7 +176,7 @@ fun TampilForm(cobaViewModel: CobaViewModel = viewModel()) {
             text = stringResource(R.string.submit),
             fontSize = 16.sp)
     }
-    Spacer(modifier = Modifier.height(100.dp))
+    Spacer(modifier = Modifier.height(20.dp))
     TextHasil(
         jenisnya = cobaViewModel.jenisKl,
         statusnya = cobaViewModel.status,
