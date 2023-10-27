@@ -75,6 +75,10 @@ fun TampilLayout(
             painter = painterResource(id = R.drawable.baseline_arrow_back_24),
             contentDescription = null
         )
+
+        Text(
+            text = "Register"
+        )
     }
     Divider()
     Text(
